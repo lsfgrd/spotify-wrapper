@@ -8,7 +8,7 @@ export class SpotifyWrapper {
   private url = `https://api.spotify.com/v1`;
   private token_url = `https://accounts.spotify.com/api/token`;
 
-  public async genericSearch(query: string, queryType: string | string[]): Promise<any> {
+  public async genericSearch(query: string, queryType: string | string[]): Promise<Response> {
     const endpoint = 'search';
     query = query?.toLowerCase();
     const result = await global
@@ -47,33 +47,33 @@ export class SpotifyWrapper {
     return Buffer.from(`${process.env.CLIENT_ID}:${process.env.CLIENT_SECRET}`).toString('base64');
   }
 
-  public searchAlbums(query: string): Promise<any> {
+  public searchAlbums(query: string): Promise<Response> {
     return this.genericSearch(query, ESearchType.album);
   }
 
-  public searchArtists(query: string): Promise<any> {
+  public searchArtists(query: string): Promise<Response> {
     return this.genericSearch(query, ESearchType.artist);
   }
 
-  public searchTracks(query: string): Promise<any> {
+  public searchTracks(query: string): Promise<Response> {
     return this.genericSearch(query, ESearchType.track);
   }
 
-  public searchPlaylists(query: string): Promise<any> {
+  public searchPlaylists(query: string): Promise<Response> {
     return this.genericSearch(query, ESearchType.playlist);
   }
 
-  public searchEpisodes(query: string): Promise<any> {
+  public searchEpisodes(query: string): Promise<Response> {
     return this.genericSearch(query, ESearchType.episode);
   }
 
-  public searchShows(query: string): Promise<any> {
+  public searchShows(query: string): Promise<Response> {
     return this.genericSearch(query, ESearchType.show);
   }
 }
 
 export const spotifyWrapper = new SpotifyWrapper();
 
-spotifyWrapper.searchArtists('Frank Ocean')
+spotifyWrapper.searchAlbums('Frank Ocean')
   .then(x => x.json())
   .then(y => console.log(y));
