@@ -11,14 +11,18 @@ export class SpotifyWrapper {
   public async genericSearch(query: string, queryType: string | string[]): Promise<Response> {
     const endpoint = 'search';
     query = query?.toLowerCase();
+
+    const authToken = this.getAuthToken();
+
     const result = await global
       .fetch(`${this.url}/${endpoint}?q=${encodeURI(query)}&type=${encodeURI(queryType?.toString())}`, {
-        headers: { 'Authorization': `Bearer ${ await this.getAuthToken()}` },
+        headers: { 'Authorization': `Bearer ${authToken}` },
       });
+
     return result;
   }
 
-  public async getAuthToken(): Promise<string> {
+  private async getAuthToken(): Promise<string> {
     const headers = {
       'Content-Type': 'application/x-www-form-urlencoded',
       'Authorization': `Basic ${this.createAuthorizationToken()}`
@@ -26,20 +30,13 @@ export class SpotifyWrapper {
 
     const body = 'grant_type=client_credentials';
 
-    const response = await global.fetch(this.token_url, {
+    const response = global.fetch(this.token_url, {
       method: 'POST',
       headers,
       body
     });
 
-    let data: string;
-
-    try {
-      data = await response.json()
-    } catch (e) {
-      data = await response.text()
-    }
-
+    const data = await response;
     return data['access_token'];
   }
 
@@ -74,6 +71,6 @@ export class SpotifyWrapper {
 
 export const spotifyWrapper = new SpotifyWrapper();
 
-spotifyWrapper.searchAlbums('Frank Ocean')
-  .then(x => x.json())
-  .then(y => console.log(y));
+// spotifyWrapper.searchAlbums('Frank Ocean')
+//   .then(x => x.json())
+//   .then(y => console.log(y));
