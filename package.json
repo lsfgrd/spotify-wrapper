@@ -1,24 +1,24 @@
 {
-  "name": "node-typescript-boilerplate",
-  "version": "0.0.0",
-  "description": "Minimalistic boilerplate to quick-start Node.js development in TypeScript.",
+  "name": "spotify-wrapper",
+  "version": "0.1.0",
+  "description": "my spotify wrapper based on @willianjusten's tdd course",
   "engines": {
     "node": ">= 12.13 <13"
   },
   "devDependencies": {
     "@types/jest": "~25.1.2",
-    "@types/node": "~12.12.27",
-    "@typescript-eslint/eslint-plugin": "~2.19.2",
-    "@typescript-eslint/parser": "~2.19.2",
+    "@types/node": "~13.11.1",
+    "@typescript-eslint/eslint-plugin": "~2.27.0",
+    "@typescript-eslint/parser": "~2.27.0",
     "eslint": "~6.8.0",
-    "eslint-config-prettier": "~6.10.0",
-    "eslint-plugin-jest": "~23.7.0",
-    "jest": "~25.1.0",
-    "prettier": "~1.19.1",
+    "eslint-config-prettier": "~6.10.1",
+    "eslint-plugin-jest": "~23.8.2",
+    "jest": "~25.3.0",
+    "prettier": "~2.0.4",
     "rimraf": "~3.0.2",
-    "ts-jest": "~25.2.0",
-    "tsutils": "~3.17.0",
-    "typescript": "~3.8.2"
+    "ts-jest": "~25.3.1",
+    "tsutils": "~3.17.1",
+    "typescript": "~3.8.3"
   },
   "scripts": {
     "clean": "rimraf coverage build tmp",
@@ -28,7 +28,7 @@
     "test": "jest --coverage",
     "test:watch": "jest --watch"
   },
-  "author": "Jakub Synowiec <github@jakubsynowiec.info>",
+  "author": "Figueiredo <lsfgrd>",
   "license": "Apache-2.0",
   "dependencies": {
     "tslib": "~1.10.0"
