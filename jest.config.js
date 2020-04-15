@@ -18,6 +18,6 @@ module.exports = {
   ],
   testPathIgnorePatterns: [
     "/node_modules/",
-    "/__tests__/index.d.ts"
+    "/__tests__/helpers"
   ]
 };

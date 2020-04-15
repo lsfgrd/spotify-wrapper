@@ -1,18 +1,17 @@
 import fetch from 'node-fetch';
 import { ESearchType } from './enums/ESearchType';
+import { Auth } from './Auth';
 
 global.fetch = fetch;
-require('dotenv').config();
 
-export class SpotifyWrapper {
+export class Search {
   private url = `https://api.spotify.com/v1`;
-  private token_url = `https://accounts.spotify.com/api/token`;
 
   public async genericSearch(query: string, queryType: string | string[]): Promise<Response> {
     const endpoint = 'search';
     query = query?.toLowerCase();
 
-    const authToken = this.getAuthToken();
+    const authToken = Auth.getAuthToken();
 
     const result = await global
       .fetch(`${this.url}/${endpoint}?q=${encodeURI(query)}&type=${encodeURI(queryType?.toString())}`, {
@@ -20,28 +19,6 @@ export class SpotifyWrapper {
       });
 
     return result;
-  }
-
-  private async getAuthToken(): Promise<string> {
-    const headers = {
-      'Content-Type': 'application/x-www-form-urlencoded',
-      'Authorization': `Basic ${this.createAuthorizationToken()}`
-    };
-
-    const body = 'grant_type=client_credentials';
-
-    const response = global.fetch(this.token_url, {
-      method: 'POST',
-      headers,
-      body
-    });
-
-    const data = await response;
-    return data['access_token'];
-  }
-
-  private createAuthorizationToken(): string {
-    return Buffer.from(`${process.env.CLIENT_ID}:${process.env.CLIENT_SECRET}`).toString('base64');
   }
 
   public searchAlbums(query: string): Promise<Response> {
@@ -69,7 +46,7 @@ export class SpotifyWrapper {
   }
 }
 
-export const spotifyWrapper = new SpotifyWrapper();
+export const search = new Search();
 
 // spotifyWrapper.searchAlbums('Frank Ocean')
 //   .then(x => x.json())
